@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import './App.css';
 import SingleCard from './components/SingleCard';
 
@@ -36,12 +36,11 @@ function App() {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
   };
 
-  const resetTurn = () => {
+  const resetTurn = useCallback(() => {
     setChoiceOne(null);
     setChoiceTwo(null);
-    setTurns(turns+1);
-    setDisabled(false);
-  };
+    setTurns(t => t + 1);
+  }, [setChoiceOne, setChoiceTwo]);
 
   useEffect(() => {
     if ( choiceOne && choiceTwo ) {
