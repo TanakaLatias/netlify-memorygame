@@ -36,6 +36,13 @@ function App() {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
   };
 
+  const resetTurn = () => {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setTurns(turns+1);
+    setDisabled(false);
+  };
+
   useEffect(() => {
     if ( choiceOne && choiceTwo ) {
       setDisabled(true);
@@ -54,14 +61,7 @@ function App() {
         setTimeout( ()=> resetTurn(), 1000 );
       };
     };
-  }, [choiceTwo]);
-
-  const resetTurn = () => {
-    setChoiceOne(null);
-    setChoiceTwo(null);
-    setTurns(turns+1);
-    setDisabled(false);
-  };
+  }, [cards, choiceOne, resetTurn, choiceTwo]);
 
   console.log(cards);
 
