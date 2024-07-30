@@ -33,13 +33,18 @@ function App() {
 
   const handleChoice = ( card ) => {
     console.log(card);
-    choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
+    if (card === choiceOne || card === choiceTwo || card.matched === true) {
+      console.log("none");
+    } else {
+      choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
+    };
   };
 
   const resetTurn = useCallback(() => {
     setChoiceOne(null);
     setChoiceTwo(null);
     setTurns(t => t + 1);
+    setDisabled(false);
   }, [setChoiceOne, setChoiceTwo]);
 
   useEffect(() => {
@@ -74,8 +79,8 @@ function App() {
         <SingleCard 
         key={ card.id } 
         card={ card } 
-        handleChoice={ handleChoice } 
-        flipped={ card===choiceOne || card===choiceTwo || card.matched===true } 
+        handleChoice={handleChoice}
+        flipped={card === choiceOne || card === choiceTwo || card.matched === true}
         disabled={ disabled }
         /> ))}
       </div>
